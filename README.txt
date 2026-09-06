@@ -1,110 +1,92 @@
-================================================================================
-PROJECT: SET OPERATIONS ON TEXT DATA USING BINARY SEARCH TREES
-COURSE: ALSDD (Algorithms and Dynamic Data Structures)
-================================================================================
+# Set Operations on Text Data Using Binary Search Trees
 
---------------------------------------------------------------------------------
-1. PROJECT ABSTRACT
---------------------------------------------------------------------------------
-This project is a C-based text analysis system designed to apply mathematical 
-set operations—namely Union, Intersection, and Difference—to structured text 
-data. By utilizing Binary Search Trees (BST) as the underlying data structure, 
-the application efficiently organizes, stores, and compares individual phrases 
-extracted from paragraphs across multiple files. 
+A C-based text analysis system that applies mathematical set operations — **Union**, **Intersection**, and **Difference** — to structured text data. Built for the ALSDD (Algorithms and Dynamic Data Structures) course.
 
-The software bridges the gap between formal set theory and practical data 
-processing, providing a robust, high-performance environment for identifying 
-textual overlaps and unique content.
+By using Binary Search Trees (BSTs) as the underlying data structure, the program organizes, stores, and compares individual phrases extracted from paragraphs across multiple files, bridging formal set theory with practical text processing.
 
---------------------------------------------------------------------------------
-2. KEY FEATURES
---------------------------------------------------------------------------------
-* Robust File Parsing Pipeline:
-  - Dynamically processes large text files without hardcoded buffer limits.
-  - Automatically sanitizes messy Windows file paths (stripping quotes, spaces, 
-    and PowerShell call operators).
-  - Handles cross-platform line endings (\r\n vs \n) seamlessly.
+## Features
 
-* Abstract Machine Architecture:
-  - Strictly separates the "Text Parsing Pipeline" from the "BST Data Structure 
-    Machine," adhering to best practices for Abstract Data Types (ADTs).
+- **Robust file parsing pipeline**
+  - Dynamically processes large text files with no hardcoded buffer limits.
+  - Automatically sanitizes messy Windows file paths (strips quotes, spaces, and PowerShell call operators).
+  - Handles cross-platform line endings (`\r\n` vs `\n`) seamlessly.
 
-* Mathematical Set Operations via BST:
-  - Union (A ∪ B): Merges two paragraph trees, ignoring duplicate phrases.
-  - Intersection (A ∩ B): Extracts phrases present in both paragraphs.
-  - Difference (A \ B): Identifies unique phrases present only in the first.
+- **Abstract machine architecture**
+  - Strictly separates the text parsing pipeline from the BST data structure machine, following ADT best practices.
+
+- **Mathematical set operations via BST**
+  - **Union (A ∪ B)** — merges two paragraph trees, ignoring duplicate phrases.
+  - **Intersection (A ∩ B)** — extracts phrases present in both paragraphs.
+  - **Difference (A \ B)** — identifies phrases unique to the first paragraph.
   - O(log N) average time complexity for insertions and lookups.
 
-* Immersive Terminal Interface:
-  - Automatically relaunches itself in a maximized Windows Command Prompt.
-  - Features an interactive, animated "Hacker Green" terminal menu.
+- **Immersive terminal interface**
+  - Automatically relaunches in a maximized Windows Command Prompt.
+  - Interactive, animated "hacker green" terminal menu.
   - Step-by-step guidance for file and paragraph selection.
 
-* Memory Safe:
-  - Thorough dynamic memory management (malloc, realloc, strdup).
-  - Full memory cleanup implementation (Post-order tree traversal to free nodes) 
-    preventing memory leaks upon program termination.
+- **Memory safe**
+  - Thorough dynamic memory management (`malloc`, `realloc`, `strdup`).
+  - Full cleanup via post-order tree traversal, preventing memory leaks on exit.
 
---------------------------------------------------------------------------------
-3. PROJECT ARCHITECTURE & FILES
---------------------------------------------------------------------------------
-The source code is modularly structured into numbered files to reflect the logical 
-pipeline of the application:
+## Project Architecture
 
-[ Headers / Definitions ]
-* 00_structures.h       : Contains core typedefs (tree_node, text_file).
-* 01_text_processing.h  : Prototypes for string manipulation and extraction.
-* 02_operations.h       : Prototypes for the BST Abstract Machine (Set Logic).
-* 03_interface.h        : Prototypes for the terminal UI and animations.
+Source files are numbered to reflect the logical pipeline of the application.
 
-[ Source Files ]
-* 05_file_processing.c  : Handles file I/O, path sanitization, and reading 
-                          entire files into dynamic memory buffers.
-* 06_text_processing.c  : The "Parser" - breaks down files into paragraphs (\n) 
-                          and phrases (delimited by .?!;), stripping spaces.
-* 07_main.c             : The entry point. Manages the terminal interface, 
-                          state loop, and end-of-program memory deallocation.
-* 08_union.c            : Core logic for merging trees without duplicates.
-* 09_intersection.c     : Tree traversal logic to find and extract common nodes.
-* 10_difference.c       : Logic to isolate mutually exclusive nodes.
+**Headers / Definitions**
 
---------------------------------------------------------------------------------
-4. PREREQUISITES & COMPILATION
---------------------------------------------------------------------------------
-* Compiler: GCC (MinGW for Windows recommended).
-* Operating System: Designed primarily for Windows (utilizes <windows.h> for 
-  terminal maximization and UI elements).
+| File | Purpose |
+|---|---|
+| `00_structures.h` | Core typedefs (`tree_node`, `text_file`) |
+| `01_text_processing.h` | Prototypes for string manipulation and extraction |
+| `02_operations.h` | Prototypes for the BST abstract machine (set logic) |
+| `03_interface.h` | Prototypes for the terminal UI and animations |
 
-To compile the project via terminal:
-    gcc *.c -o set_analyzer.exe
+**Source Files**
 
---------------------------------------------------------------------------------
-5. USAGE INSTRUCTIONS
---------------------------------------------------------------------------------
+| File | Purpose |
+|---|---|
+| `05_file_processing.c` | File I/O, path sanitization, reading files into dynamic buffers |
+| `06_text_processing.c` | Parser — splits files into paragraphs (`\n`) and phrases (`. ? ! ;`), strips spaces |
+| `07_main.c` | Entry point — terminal interface, state loop, end-of-program cleanup |
+| `08_union.c` | Merges trees without duplicates |
+| `09_intersection.c` | Tree traversal to find and extract common nodes |
+| `10_difference.c` | Isolates mutually exclusive nodes |
+
+## Prerequisites
+
+- **Compiler:** GCC (MinGW recommended for Windows)
+- **OS:** Designed primarily for Windows (uses `<windows.h>` for terminal maximization and UI elements)
+
+## Compilation
+
+```bash
+gcc *.c -o set_analyzer.exe
+```
+
+## Usage
+
 1. Run the compiled executable:
+   ```bash
    ./set_analyzer.exe
-2. The terminal will automatically maximize and display the startup animation.
+   ```
+2. The terminal automatically maximizes and displays the startup animation.
 3. Enter the number of text files you wish to analyze.
-4. For each file, provide the absolute path. (You can safely use Windows 
-   "Copy as Path"; the program will automatically clean the formatting).
-5. From the main menu, select the Set Operation you want to perform (Union, 
-   Intersection, or Difference).
-6. Select the file and the specific paragraph number for "Set A".
-7. Select the file and the specific paragraph number for "Set B".
-8. The program will compute the operation and display the resulting phrases 
-   in alphabetical order (In-order traversal).
-9. Select "Exit" from the main menu to safely free all allocated memory and close.
+4. For each file, provide the absolute path (Windows "Copy as Path" works — the program cleans the formatting automatically).
+5. From the main menu, select a set operation: Union, Intersection, or Difference.
+6. Select the file and paragraph number for **Set A**.
+7. Select the file and paragraph number for **Set B**.
+8. The program computes the operation and displays the resulting phrases in alphabetical order (in-order traversal).
+9. Select **Exit** to safely free all allocated memory and close.
 
---------------------------------------------------------------------------------
-6. TEST DATA STRUCTURE
---------------------------------------------------------------------------------
-To test the program, ensure your text files are formatted as follows:
-- Paragraphs must be separated by the Return/Enter key (Newlines).
-- Phrases inside paragraphs must be separated by standard delimiters: 
-  period (.), question mark (?), exclamation point (!), or semicolon (;).
+## Test Data Format
 
-Example:
+- Paragraphs must be separated by newlines (Enter key).
+- Phrases within a paragraph must be separated by one of: `.` `?` `!` `;`
+
+**Example:**
+
+```
 Data structures are essential; learning C is fun.
 Trees are hierarchical? Binary search trees are fast.
-
-================================================================================
+```
